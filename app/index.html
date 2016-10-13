@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html ng-app="contatosAppModule">
+<head>
+	<meta charset="utf-8">
+	<title>Phone List - Review angularJS concepts</title>
+	<link rel="stylesheet" type="text/css" href="lib/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/app.css">
+	<script src="lib/angular/angular.js"></script>
+	<script type="text/javascript" src="lib/angular-messages/angular-messages.js"></script>
+	<script type="text/javascript" src="js/contatosAppModule.js"></script>
+	<script type="text/javascript" src="js/controllers/contatosController.js"></script>
+	<script type="text/javascript" src="js/services/contatosAPIService.js"></script>
+	<script type="text/javascript" src="js/services/operadorasAPIService.js"></script>
+	<script type="text/javascript" src="js/services/serialGeneratorService.js"></script>
+	<script type="text/javascript" src="js/config/globalVariablesApp.js"></script>
+	<script type="text/javascript" src="js/config/serialGeneratorConfig.js"></script>
+</head>
+<body ng-controller="contatosController">
+	<div class="jumbotron">
+		<h3> {{app}} </h3>
+		<input type="text" ng-model="searchCriteria" class="form-control" placeholder="What are you searching ?">
+		<table class="table">
+			<tr>
+				<th></th>
+				<th>Serial</th>
+				<th> <a href="" ng-click="sortBy('nome')">Nome</a> </th>
+				<th> <a href="" ng-click="sortBy('telefone')">Telefone</a> </th>
+				<th>Operadora</th>
+				<th>Data</th>
+			</tr>
+			<tr ng-class="{'selectStyle strongStyle': contato.selected}" ng-repeat="contato in contatos | filter:{nome: searchCriteria} | orderBy:criteriaSort:changeOrder">
+				<td> <input type="checkbox" ng-model="contato.selected"> </td>
+				<td> {{contato.serial}} </td>
+				<td> {{contato.nome}} </td>
+				<td> {{contato.telefone}} </td>
+				<td> {{contato.operadora.nome}} </td>
+				<td> {{contato.data | date:'dd/MM/yyyy - HH:mm' }} </td>
+			</tr>			
+		</table>
+		<br/>
+		<form name="contatoForm">
+			<input type="text" class="form-control" name="nome" ng-model="contato.nome" ng-required="true" ng-minLength="3" ng-maxLength="20" placeholder="name">
+			<div class="alert alert-danger" ng-show="contatoForm.nome.$error.required && contatoForm.nome.$dirty"> 
+				The field nome must be filled 
+			</div>
+			<div class="alert alert-danger" ng-show="contatoForm.nome.$error.maxlength"> 
+				The field nome must have at maximum 20 characters
+			</div>
+			<div class="alert alert-danger" ng-show="contatoForm.nome.$error.minlength"> 
+				The field nome must have at least 3 characters 
+			</div>
+			<input type="text" class="form-control" name="telefone" ng-model="contato.telefone" ng-required="true" ng-pattern="/^\d{4,5}-\d{4}$/" placeholder="phone">
+			<div class="alert alert-danger" ng-show="contatoForm.telefone.$invalid && contatoForm.telefone.$dirty"> 
+				You must insert just numbers in this field. <br/> either this way DDDDD-DDDD <br/> or this way DDDD-DDDD 
+			</div>
+			<select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome for operadora in operadoras" ng-required="true">
+				<option value="">Phone's vendor</option>
+			</select>
+			<button class="btn btn-primary btn-block" ng-click="add(contato)" ng-disabled="contatoForm.$invalid">Add contact</button>
+			<button class="btn btn-danger btn-block" ng-click="remove(contatos)" ng-if="isContatoSelected(contatos)">Remove contact</button>
+		</form>
+	</div>
+	<div ng-include src="'views/footer.html'"></div>
+</body>
+</html>
