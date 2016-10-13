@@ -1,5 +1,4 @@
 angular.module("contatosAppModule").controller("contatosController", function($scope, contatosAPIService, operadorasAPIService, serialGeneratorService) {
-	console.log(serialGeneratorService.generate());
 	$scope.app = "Contatos Application";
 	$scope.contatos = [];
 	$scope.operadoras = [];
@@ -8,21 +7,20 @@ angular.module("contatosAppModule").controller("contatosController", function($s
 		contatosAPIService.getContatos().success(function(data) {
 			$scope.contatos = data;					
 		}).error(function(data, status) {
-			$scope.message = "There was an error.";
+			$scope.contatosError = "The service contatosWS/contatos cannot be reached by application";
 		});
 	};
 
 	var carregarOperadoras = function() {
 		operadorasAPIService.getOperadoras().success(function(data) {
 			$scope.operadoras = data;
+		}).error(function(data, status) {
+			$scope.operadorasError = "The service contatosWS/operadoras cannot be reached by application";
 		});
 	};
 
 	$scope.add = function(contato) {
-
-
 		contato.serial = serialGeneratorService.generate();
-		contato.data = new Date();
 		contatosAPIService.saveContato(contato).success(function(data) {
 			delete $scope.contato;
 			$scope.contatoForm.$setPristine();

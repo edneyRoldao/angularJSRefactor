@@ -5,6 +5,7 @@
 	<title>Phone List - Review angularJS concepts</title>
 	<link rel="stylesheet" type="text/css" href="lib/bootstrap/dist/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/app.css">
+	<link rel="stylesheet" type="text/css" href="css/restfulErrorMsgStyle.css">	
 	<script src="lib/angular/angular.js"></script>
 	<script type="text/javascript" src="lib/angular-messages/angular-messages.js"></script>
 	<script type="text/javascript" src="js/contatosAppModule.js"></script>
@@ -14,10 +15,21 @@
 	<script type="text/javascript" src="js/services/serialGeneratorService.js"></script>
 	<script type="text/javascript" src="js/config/globalVariablesApp.js"></script>
 	<script type="text/javascript" src="js/config/serialGeneratorConfig.js"></script>
+	<script type="text/javascript" src="js/filters/nameFormatterFilter.js"></script>
+	<script type="text/javascript" src="js/filters/ellipsisFilter.js"></script>
+	<script type="text/javascript" src="js/directives/errorMsgDirective.js"></script>			
+	<script type="text/javascript" src="js/directives/dateMaskDirective.js"></script>
 </head>
 <body ng-controller="contatosController">
 	<div class="jumbotron">
 		<h3> {{app}} </h3>
+
+		<ui-erro-msg ng-if="!!contatosError" title="Ops !" message="contatosError"></ui-erro-msg>
+		<ui-erro-msg ng-if="!!operadorasError" title="Ops !" message="operadorasError"></ui-erro-msg>
+
+		<accordion-directive title="First accordion"></accordion-directive>
+		<accordion-directive title="Second accorsion"></accordion-directive>
+
 		<input type="text" ng-model="searchCriteria" class="form-control" placeholder="What are you searching ?">
 		<table class="table">
 			<tr>
@@ -31,10 +43,10 @@
 			<tr ng-class="{'selectStyle strongStyle': contato.selected}" ng-repeat="contato in contatos | filter:{nome: searchCriteria} | orderBy:criteriaSort:changeOrder">
 				<td> <input type="checkbox" ng-model="contato.selected"> </td>
 				<td> {{contato.serial}} </td>
-				<td> {{contato.nome}} </td>
+				<td> {{ contato.nome | nameFormatFilter | ellipsisFilter:20 }} </td>
 				<td> {{contato.telefone}} </td>
 				<td> {{contato.operadora.nome}} </td>
-				<td> {{contato.data | date:'dd/MM/yyyy - HH:mm' }} </td>
+				<td> {{contato.data | date:'dd/MM/yyyy' }} </td>
 			</tr>			
 		</table>
 		<br/>
@@ -53,6 +65,7 @@
 			<div class="alert alert-danger" ng-show="contatoForm.telefone.$invalid && contatoForm.telefone.$dirty"> 
 				You must insert just numbers in this field. <br/> either this way DDDDD-DDDD <br/> or this way DDDD-DDDD 
 			</div>
+			<input type="text" class="form-control" name="data" ng-model="contato.data" ng-required="true" placeholder="date" date-mask-directive>
 			<select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome for operadora in operadoras" ng-required="true">
 				<option value="">Phone's vendor</option>
 			</select>
