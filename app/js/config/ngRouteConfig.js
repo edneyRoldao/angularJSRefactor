@@ -24,5 +24,9 @@ angular.module("contatosAppModule").config(function($routeProvider) {
 		}
 	});
 
+	$routeProvider.when("/error", {
+		templateUrl: "views/error.html"
+	});
+
 	$routeProvider.otherwise({redirectTo: "/contatos"});
 });
