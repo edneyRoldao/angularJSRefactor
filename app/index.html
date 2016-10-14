@@ -6,6 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="lib/bootstrap/dist/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/app.css">
 	<link rel="stylesheet" type="text/css" href="css/restfulErrorMsgStyle.css">	
+	<link rel="stylesheet" type="text/css" href="css/accordion.css">		
 	<script src="lib/angular/angular.js"></script>
 	<script type="text/javascript" src="lib/angular-messages/angular-messages.js"></script>
 	<script type="text/javascript" src="js/contatosAppModule.js"></script>
@@ -19,6 +20,7 @@
 	<script type="text/javascript" src="js/filters/ellipsisFilter.js"></script>
 	<script type="text/javascript" src="js/directives/errorMsgDirective.js"></script>			
 	<script type="text/javascript" src="js/directives/dateMaskDirective.js"></script>
+	<script type="text/javascript" src="js/directives/accordionDirective.js"></script>	
 </head>
 <body ng-controller="contatosController">
 	<div class="jumbotron">
@@ -27,10 +29,16 @@
 		<ui-erro-msg ng-if="!!contatosError" title="Ops !" message="contatosError"></ui-erro-msg>
 		<ui-erro-msg ng-if="!!operadorasError" title="Ops !" message="operadorasError"></ui-erro-msg>
 
-		<accordion-directive title="First accordion"></accordion-directive>
-		<accordion-directive title="Second accorsion"></accordion-directive>
+		<accordion-parent-directive>
+			<accordion-directive title="First accordion">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			</accordion-directive>
+			<accordion-directive title="Second accorsion">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			</accordion-directive>			
+		</accordion-parent-directive>
 
-		<input type="text" ng-model="searchCriteria" class="form-control" placeholder="What are you searching ?">
+		<input type="text" style="margin-top: 10px" ng-model="searchCriteria" class="form-control" placeholder="What are you searching ?">
 		<table class="table">
 			<tr>
 				<th></th>

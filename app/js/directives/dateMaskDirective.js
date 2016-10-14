@@ -22,6 +22,7 @@ angular.module("contatosAppModule").directive("dateMaskDirective", function() {
 					return new Date(dataToken[2], dataToken[1] - 1, dataToken[0]);
 				}				
 			});
+			
 		}
 	};
 })
