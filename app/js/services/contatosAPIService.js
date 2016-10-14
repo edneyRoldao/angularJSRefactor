@@ -1,5 +1,4 @@
 angular.module("contatosAppModule").factory("contatosAPIService", function($http, globalVariablesApp) {
-	
 	var _getContatos = function() {
 		return $http.get(globalVariablesApp.baseUrl + "/contatos");
 	};
@@ -8,9 +7,14 @@ angular.module("contatosAppModule").factory("contatosAPIService", function($http
 		return $http.post(globalVariablesApp.baseUrl + "/contatos", contato);
 	};
 
+	var _getContato = function(id) {
+		return $http.get(globalVariablesApp.baseUrl + "/contatos/" + id);
+	};
+
 	return {
 		getContatos: _getContatos,
-		saveContato: _saveContato
+		saveContato: _saveContato,
+		getContato: _getContato
 	};
 });
 

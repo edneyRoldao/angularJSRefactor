@@ -1,1 +1,1 @@
-angular.module("contatosAppModule", ["ngMessages"]);
+angular.module("contatosAppModule", ["ngRoute", "ngMessages", "serialGeneratorService", "uiAccordion"]);

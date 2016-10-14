@@ -1,86 +1,33 @@
 <!DOCTYPE html>
 <html ng-app="contatosAppModule">
-<head>
-	<meta charset="utf-8">
-	<title>Phone List - Review angularJS concepts</title>
-	<link rel="stylesheet" type="text/css" href="lib/bootstrap/dist/css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="css/app.css">
-	<link rel="stylesheet" type="text/css" href="css/restfulErrorMsgStyle.css">	
-	<link rel="stylesheet" type="text/css" href="css/accordion.css">		
-	<script src="lib/angular/angular.js"></script>
-	<script type="text/javascript" src="lib/angular-messages/angular-messages.js"></script>
-	<script type="text/javascript" src="js/contatosAppModule.js"></script>
-	<script type="text/javascript" src="js/controllers/contatosController.js"></script>
-	<script type="text/javascript" src="js/services/contatosAPIService.js"></script>
-	<script type="text/javascript" src="js/services/operadorasAPIService.js"></script>
-	<script type="text/javascript" src="js/services/serialGeneratorService.js"></script>
-	<script type="text/javascript" src="js/config/globalVariablesApp.js"></script>
-	<script type="text/javascript" src="js/config/serialGeneratorConfig.js"></script>
-	<script type="text/javascript" src="js/filters/nameFormatterFilter.js"></script>
-	<script type="text/javascript" src="js/filters/ellipsisFilter.js"></script>
-	<script type="text/javascript" src="js/directives/errorMsgDirective.js"></script>			
-	<script type="text/javascript" src="js/directives/dateMaskDirective.js"></script>
-	<script type="text/javascript" src="js/directives/accordionDirective.js"></script>	
-</head>
-<body ng-controller="contatosController">
-	<div class="jumbotron">
-		<h3> {{app}} </h3>
-
-		<ui-erro-msg ng-if="!!contatosError" title="Ops !" message="contatosError"></ui-erro-msg>
-		<ui-erro-msg ng-if="!!operadorasError" title="Ops !" message="operadorasError"></ui-erro-msg>
-
-		<accordion-parent-directive>
-			<accordion-directive title="First accordion">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-			</accordion-directive>
-			<accordion-directive title="Second accorsion">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-			</accordion-directive>			
-		</accordion-parent-directive>
-
-		<input type="text" style="margin-top: 10px" ng-model="searchCriteria" class="form-control" placeholder="What are you searching ?">
-		<table class="table">
-			<tr>
-				<th></th>
-				<th>Serial</th>
-				<th> <a href="" ng-click="sortBy('nome')">Nome</a> </th>
-				<th> <a href="" ng-click="sortBy('telefone')">Telefone</a> </th>
-				<th>Operadora</th>
-				<th>Data</th>
-			</tr>
-			<tr ng-class="{'selectStyle strongStyle': contato.selected}" ng-repeat="contato in contatos | filter:{nome: searchCriteria} | orderBy:criteriaSort:changeOrder">
-				<td> <input type="checkbox" ng-model="contato.selected"> </td>
-				<td> {{contato.serial}} </td>
-				<td> {{ contato.nome | nameFormatFilter | ellipsisFilter:20 }} </td>
-				<td> {{contato.telefone}} </td>
-				<td> {{contato.operadora.nome}} </td>
-				<td> {{contato.data | date:'dd/MM/yyyy' }} </td>
-			</tr>			
-		</table>
-		<br/>
-		<form name="contatoForm">
-			<input type="text" class="form-control" name="nome" ng-model="contato.nome" ng-required="true" ng-minLength="3" ng-maxLength="20" placeholder="name">
-			<div class="alert alert-danger" ng-show="contatoForm.nome.$error.required && contatoForm.nome.$dirty"> 
-				The field nome must be filled 
-			</div>
-			<div class="alert alert-danger" ng-show="contatoForm.nome.$error.maxlength"> 
-				The field nome must have at maximum 20 characters
-			</div>
-			<div class="alert alert-danger" ng-show="contatoForm.nome.$error.minlength"> 
-				The field nome must have at least 3 characters 
-			</div>
-			<input type="text" class="form-control" name="telefone" ng-model="contato.telefone" ng-required="true" ng-pattern="/^\d{4,5}-\d{4}$/" placeholder="phone">
-			<div class="alert alert-danger" ng-show="contatoForm.telefone.$invalid && contatoForm.telefone.$dirty"> 
-				You must insert just numbers in this field. <br/> either this way DDDDD-DDDD <br/> or this way DDDD-DDDD 
-			</div>
-			<input type="text" class="form-control" name="data" ng-model="contato.data" ng-required="true" placeholder="date" date-mask-directive>
-			<select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome for operadora in operadoras" ng-required="true">
-				<option value="">Phone's vendor</option>
-			</select>
-			<button class="btn btn-primary btn-block" ng-click="add(contato)" ng-disabled="contatoForm.$invalid">Add contact</button>
-			<button class="btn btn-danger btn-block" ng-click="remove(contatos)" ng-if="isContatoSelected(contatos)">Remove contact</button>
-		</form>
-	</div>
-	<div ng-include src="'views/footer.html'"></div>
-</body>
+	<head>
+		<meta charset="utf-8">
+		<title>Phone List - Review angularJS concepts</title>
+		<link rel="stylesheet" type="text/css" href="lib/bootstrap/dist/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="css/app.css">
+		<link rel="stylesheet" type="text/css" href="css/restfulErrorMsgStyle.css">	
+		<link rel="stylesheet" type="text/css" href="css/accordion.css">		
+		<script src="lib/angular/angular.js"></script>
+		<script src="lib/angular-route/angular-route.js"></script>	
+		<script src="lib/angular-messages/angular-messages.js"></script>
+		<script src="lib/serial-generator/serialGenerator.js"></script>
+		<script src="lib/ui-components/accordionDirective.js"></script>	
+		<script src="js/contatosAppModule.js"></script>
+		<script src="js/controllers/contatosController.js"></script>
+		<script src="js/controllers/newContatoController.js"></script>
+		<script src="js/controllers/detalhesContatoController.js"></script>
+		<script src="js/services/contatosAPIService.js"></script>
+		<script src="js/services/operadorasAPIService.js"></script>
+		<script src="js/config/globalVariablesApp.js"></script>
+		<script src="js/config/serialGeneratorConfig.js"></script>
+		<script src="js/config/ngRouteConfig.js"></script>
+		<script src="js/filters/nameFormatterFilter.js"></script>
+		<script src="js/filters/ellipsisFilter.js"></script>
+		<script src="js/directives/errorMsgDirective.js"></script>			
+		<script src="js/directives/dateMaskDirective.js"></script>
+	</head>
+	<body>
+		<div ng-view></div>
+		<div ng-include src="'views/footer.html'"></div>
+	</body>
 </html>
