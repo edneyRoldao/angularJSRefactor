@@ -19,6 +19,7 @@
 		<select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome for operadora in operadoras" ng-required="true">
 			<option value="">Phone's vendor</option>
 		</select>
-		<button class="btn btn-primary btn-block" ng-click="add(contato)" ng-disabled="contatoForm.$invalid">Add contact</button>
+		<button class="btn btn-primary btn-block" ng-click="add(contato)" ng-disabled="contatoForm.$invalid">Add contact</button>		
 	</form>
+	<a class="btn btn-success btn-block" href="#/contatos">Contacts list</a>
 </div>

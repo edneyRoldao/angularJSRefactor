@@ -1,4 +1,4 @@
-angular.module("contatosAppModule").factory("loadingInterceptor", function($q, $rootScope) {
+angular.module("contatosAppModule").factory("loadingInterceptor", function($q, $rootScope, $timeout) {
 	return {
 		request: function(config) {
 			$rootScope.loading = true;
@@ -9,7 +9,9 @@ angular.module("contatosAppModule").factory("loadingInterceptor", function($q, $
 			return $q.reject(rejection);
 		},
 		response: function(response) {
-			$rootScope.loading = false;
+			$timeout(function() {
+				$rootScope.loading = false;
+			}, 500);
 			return response;
 		},
 		responseError: function(rejection) {

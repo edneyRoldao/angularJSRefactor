@@ -3,15 +3,15 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Phone List - Review angularJS concepts</title>
-		<link rel="stylesheet" type="text/css" href="lib/bootstrap/dist/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="lib/public/bootstrap/dist/css/bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="css/app.css">
 		<link rel="stylesheet" type="text/css" href="css/restfulErrorMsgStyle.css">	
 		<link rel="stylesheet" type="text/css" href="css/accordion.css">		
-		<script src="lib/angular/angular.js"></script>
-		<script src="lib/angular-route/angular-route.js"></script>	
-		<script src="lib/angular-messages/angular-messages.js"></script>
-		<script src="lib/serial-generator/serialGenerator.js"></script>
-		<script src="lib/ui-components/accordionDirective.js"></script>	
+		<script src="lib/public/angular/angular.js"></script>
+		<script src="lib/public/angular-route/angular-route.js"></script>	
+		<script src="lib/public/angular-messages/angular-messages.js"></script>
+		<script src="lib/private/serial-generator/serialGenerator.js"></script>
+		<script src="lib/private/ui-components/accordionDirective.js"></script>	
 		<script src="js/contatosAppModule.js"></script>
 		<script src="js/controllers/contatosController.js"></script>
 		<script src="js/controllers/newContatoController.js"></script>
@@ -31,7 +31,14 @@
 		<script src="js/interceptors/loadingInterceptor.js"></script>
 	</head>
 	<body>
-		<div ng-view></div>
+
+		<div class="jumbotron" ng-show="loading">
+			Wait while loading...
+		</div>
+		<div ng-hide="loading">
+			<div ng-view></div>
+		</div>
 		<div ng-include src="'views/footer.html'"></div>
+
 	</body>
 </html>

@@ -1,17 +1,25 @@
 <div class="jumbotron">
-	<h3> {{app}} </h3>
-	{{loading}}
-	<ui-erro-msg ng-if="!!contatosError" title="Ops !" message="contatosError"></ui-erro-msg>
-	<ui-erro-msg ng-if="!!operadorasError" title="Ops !" message="operadorasError"></ui-erro-msg>
-
 	<accordion-parent-directive>
-		<accordion-directive title="First accordion">
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<accordion-directive title="Frontend details">
+			<ul class="list-group" style="margin-left: 10px">
+				<li>AngularJS</li>
+				<li>Bootstrap</li>
+				<li>Bower</li>
+			</ul>	
 		</accordion-directive>
-		<accordion-directive title="Second accorsion">
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<accordion-directive title="Backend details">
+			<ul class="list-group" style="margin-left: 10px">
+				<li>Java - JDK 1.8</li>
+				<li>Spring (Framework, Data, MVC, RestTemplate)</li>
+				<li>Apache Maven</li>
+				<li>Apache Tomcat 7 embedded</li>
+			</ul>	
 		</accordion-directive>			
 	</accordion-parent-directive>
+
+	<h3> {{app}} </h3>
+	<ui-erro-msg ng-if="!!contatosError" title="Ops !" message="contatosError"></ui-erro-msg>
+	<ui-erro-msg ng-if="!!operadorasError" title="Ops !" message="operadorasError"></ui-erro-msg>
 
 	<input type="text" style="margin-top: 10px" ng-model="searchCriteria" class="form-control" placeholder="What are you searching ?">
 	<table class="table">
